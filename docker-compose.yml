@@ -1,0 +1,15 @@
+services:
+  db:
+    container_name: db
+    image: postgres:14.2-alpine
+    restart: always
+    volumes:
+      - ./docker/postgres/pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      TZ: 'Asia/Tokyo'
+    # ホストOS (WSL2からのアクセス) にポートを公開する必要がある 👈
+    ports:
+      - '5432:5432'
