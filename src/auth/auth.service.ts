@@ -71,16 +71,34 @@ export class AuthService {
       //　サインインの期限を確認
       const expire = new Date();
       expire.setDate(expire.getDate() + 1);
-      if (auth.expire_at <= expire) {
-        //　期限内の処理
-        //　期限を更新
-        auth.expire_at = expire;
-        //　authテーブルの行を更新
-        await this.authRepository.save(auth);
-        //　トークンを返り値に反映
-        ret.token = auth.token;
+      if(auth) {
+        //二回目以降のサインインの場合
+        if (auth.expire_at <= expire) {
+          //　期限内の処理
+          //　期限を更新
+          auth.expire_at = expire;
+          //　authテーブルの行を更新
+          await this.authRepository.save(auth);
+          //　トークンを返り値に反映
+          ret.token = auth.token;
+        } else {
+          //　期限外の処理
+          // トークンを発行
+          const token = crypto.randomUUID();
+          //　authテーブルに追加する行の作成
+          const record = {
+            user_id: user.id,
+            user_uuid: user.uuid,
+            token: token,
+            expire_at: expire.toISOString(),
+          };
+          //　authテーブルの行を更新
+          await this.authRepository.save(record);
+          //　トークンを返り値に反映
+          ret.token = token;
+        }
       } else {
-        //　期限外の処理
+        //初めてのサインインの場合
         // トークンを発行
         const token = crypto.randomUUID();
         //　authテーブルに追加する行の作成
@@ -95,6 +113,7 @@ export class AuthService {
         //　トークンを返り値に反映
         ret.token = token;
       }
+
       return ret;
     }
 }
