@@ -41,7 +41,14 @@ export class UserService {
     if (!user) {
       throw new NotFoundException();
     }
-    return user;
+
+    //返り値を設定
+    const ret: {name: string, umail: string} = {
+      name: user.name,
+      umail: user.umail
+    }
+
+    return ret;
   }
 
   //サインアップをして登録結果を返すメソッド
