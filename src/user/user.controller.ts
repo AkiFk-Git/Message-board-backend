@@ -7,7 +7,7 @@ export class UserController {
 
   @Post()
   async postUser(
-    @Query('user_name') name: string,
+    @Query('userName') name: string,
     @Query('password') password: string,
     @Query('mail') mail: string,
   ){
@@ -15,9 +15,9 @@ export class UserController {
   }
   @Get()
   async getUser(
-    @Query('user_uuid') user_uuid: string, 
+    @Query('userUuid') userUuid: string, 
     @Query('token') token: string
   ){
-    return await this.userService.getUser(token, user_uuid);
+    return await this.userService.getUser(token, userUuid);
   }
 }

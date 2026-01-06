@@ -14,13 +14,13 @@ export class PostService {
   ) {}
 
   //ポスト投稿のメソッド
-  async createPost(message: string, token: string, user_uuid: string) {
+  async createPost(message: string, token: string, userUuid: string) {
 
     // ログイン済みかチェック
     const now = new Date();
     const auth = await this.authRepository.findOne({
       where: {
-        user_uuid: Equal(user_uuid),
+        user_uuid: Equal(userUuid),
         token: Equal(token),
         expire_at: MoreThan(now),
       },
@@ -61,10 +61,10 @@ export class PostService {
       .leftJoinAndSelect('user', 'user', 'user.id=micro_post.user_id')
       .select([
         'micro_post.id as id',
-        'micro_post.user_uuid as user_uuid',
-        'user.name as user_name',
+        'micro_post.user_uuid as "userUuid"',
+        'user.name as "userName"',
         'micro_post.content as content',
-        'micro_post.created_at as created_at',
+        'micro_post.created_at as "createdAt"',
       ])
       .orderBy('micro_post.created_at', 'DESC')
       .offset(start)
@@ -73,8 +73,8 @@ export class PostService {
     type ResultType = {
       id: number;
       content: string;
-      user_name: string;
-      created_at: Date;
+      userName: string;
+      createdAt: Date;
     };
     //テーブルからデータを取得
     const records = await qb.getRawMany<ResultType>();
@@ -83,13 +83,13 @@ export class PostService {
   }
 
   //ポスト編集のメソッド
-  async putPost(token: string, user_uuid: string,  post_id:number, message: string,){
+  async putPost(token: string, userUuid: string,  post_id:number, message: string,){
 
     // ログイン済みかチェック
     const now = new Date();
     const auth = await this.authRepository.findOne({
       where: {
-        user_uuid: Equal(user_uuid),
+        user_uuid: Equal(userUuid),
         token: Equal(token),
         expire_at: MoreThan(now),
       },
@@ -102,7 +102,7 @@ export class PostService {
     const post = await this.microPostsRepository.findOne({
       where: {
         id: Equal(post_id),
-        user_uuid: Equal(user_uuid),
+        user_uuid: Equal(userUuid),
       },
     });
     //　一致するポストの内容を変更
@@ -113,13 +113,13 @@ export class PostService {
   }
 
   //ポスト削除のメソッド
-  async deletePost(user_uuid: string, token: string,  post_id:number) {   
+  async deletePost(userUuid: string, token: string,  post_id:number) {   
 
     // ログイン済みかチェック
     const now = new Date();
     const auth = await this.authRepository.findOne({
       where: {
-        user_uuid: Equal(user_uuid),
+        user_uuid: Equal(userUuid),
         token: Equal(token),
         expire_at: MoreThan(now),
       },
@@ -132,7 +132,7 @@ export class PostService {
     const post = await this.microPostsRepository.findOne({
       where: {
         id: Equal(post_id),
-        user_uuid: Equal(user_uuid),
+        user_uuid: Equal(userUuid),
       },
     }); 
     //一致するポストをソフトデリート

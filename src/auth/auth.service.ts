@@ -23,7 +23,7 @@ export class AuthService {
         inp: false,
         user: false,
         token: '',
-        user_uuid: '',
+        userUuid: '',
       }
 
       // 入力が無い場合は返り値を反映して返す
@@ -54,7 +54,7 @@ export class AuthService {
       }
 
       //返り値にuuidを付与
-      ret.user_uuid = user.uuid;
+      ret.userUuid = user.uuid;
 
       //　authテーブルからuuidが一致するユーザーを取得
       let auth;

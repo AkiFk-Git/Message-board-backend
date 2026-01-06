@@ -9,12 +9,12 @@ export class PostController {
   async createPost(
     @Body('message') 
     message: string,
-    @Query("user_uuid")
-    user_uuid: string,
+    @Query("userUuid")
+    userUuid: string,
     @Query('token') 
     token: string,
   ) {
-    return await this.postService.createPost(message, token, user_uuid);
+    return await this.postService.createPost(message, token, userUuid);
   }
 
   @Get()
@@ -30,18 +30,18 @@ export class PostController {
   async putPost(
     @Body('message')message: string,
     @Query('token')token: string,
-    @Query('user_uuid')user_uuid:string,
+    @Query('userUuid')userUuid:string,
     @Query('post_id')post_id:number,
   ){
-    this.postService.putPost(token, user_uuid, post_id, message)
+    this.postService.putPost(token, userUuid, post_id, message)
   }
 
   @Delete()
   async deletePost(
-    @Query('user_uuid')user_uuid:string,
+    @Query('userUuid')userUuid:string,
     @Query('token')token: string,
     @Query('post_id')post_id:number,
   ){
-    await this.postService.deletePost(user_uuid, token, post_id)
+    await this.postService.deletePost(userUuid, token, post_id)
   }
 }

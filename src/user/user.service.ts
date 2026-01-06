@@ -18,7 +18,7 @@ export class UserService {
   ) {}
 
   //ユーザーを探してユーザー情報を返すメソッド
-  async getUser(token: string, user_uuid: string) {
+  async getUser(token: string, userUuid: string) {
 
     // ログイン済みかチェック
     const now = new Date();
@@ -35,7 +35,7 @@ export class UserService {
     //uuidを基にユーザー情報を取得
     const user = await this.userRepository.findOne({
       where: {
-        uuid: Equal(user_uuid),
+        uuid: Equal(userUuid),
       },
     });
     if (!user) {
