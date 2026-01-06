@@ -31,17 +31,17 @@ export class PostController {
     @Body('message')message: string,
     @Query('token')token: string,
     @Query('userUuid')userUuid:string,
-    @Query('post_id')post_id:number,
+    @Query('postId')postId:number,
   ){
-    this.postService.putPost(token, userUuid, post_id, message)
+    this.postService.putPost(token, userUuid, postId, message)
   }
 
   @Delete()
   async deletePost(
     @Query('userUuid')userUuid:string,
     @Query('token')token: string,
-    @Query('post_id')post_id:number,
+    @Query('postId')postId:number,
   ){
-    await this.postService.deletePost(userUuid, token, post_id)
+    await this.postService.deletePost(userUuid, token, postId)
   }
 }

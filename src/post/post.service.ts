@@ -83,7 +83,7 @@ export class PostService {
   }
 
   //ポスト編集のメソッド
-  async putPost(token: string, userUuid: string,  post_id:number, message: string,){
+  async putPost(token: string, userUuid: string,  postId:number, message: string,){
 
     // ログイン済みかチェック
     const now = new Date();
@@ -101,7 +101,7 @@ export class PostService {
     //  ポストidとユーザーuuidが一致するポストを取得
     const post = await this.microPostsRepository.findOne({
       where: {
-        id: Equal(post_id),
+        id: Equal(postId),
         user_uuid: Equal(userUuid),
       },
     });
@@ -113,7 +113,7 @@ export class PostService {
   }
 
   //ポスト削除のメソッド
-  async deletePost(userUuid: string, token: string,  post_id:number) {   
+  async deletePost(userUuid: string, token: string,  postId:number) {   
 
     // ログイン済みかチェック
     const now = new Date();
@@ -131,7 +131,7 @@ export class PostService {
     //  ポストidとユーザーuuidが一致するポストを取得
     const post = await this.microPostsRepository.findOne({
       where: {
-        id: Equal(post_id),
+        id: Equal(postId),
         user_uuid: Equal(userUuid),
       },
     }); 
