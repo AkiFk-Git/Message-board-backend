@@ -41,7 +41,7 @@ export class PostController {
     @Query('userUuid') userUuid: string,
     @Query('postId') postId: number,
   ) {
-    this.postService.putPost(token, userUuid, postId, message);
+    await this.postService.putPost(token, userUuid, postId, message);
   }
 
   @Delete()
