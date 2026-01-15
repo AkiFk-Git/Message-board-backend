@@ -60,7 +60,7 @@ export class AuthService {
     try {
       auth = await this.authRepository.findOne({
         where: {
-          user_uuid: Equal(user.uuid),
+          uuid: Equal(user.uuid),
         },
       });
     } catch (error) {
@@ -87,7 +87,7 @@ export class AuthService {
         //　authテーブルに追加する行の作成
         const record = {
           user_id: user.id,
-          user_uuid: user.uuid,
+          uuid: user.uuid,
           token: token,
           expire_at: expire.toISOString(),
         };
@@ -103,7 +103,7 @@ export class AuthService {
       //　authテーブルに追加する行の作成
       const record = {
         user_id: user.id,
-        user_uuid: user.uuid,
+        uuid: user.uuid,
         token: token,
         expire_at: expire.toISOString(),
       };
