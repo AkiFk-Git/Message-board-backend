@@ -22,7 +22,7 @@ export class PostController {
     @Query('token')
     token: string,
   ) {
-    return await this.postService.createPost(message, token, userUuid);
+    await this.postService.createPost(message, token, userUuid);
   }
 
   @Get()
