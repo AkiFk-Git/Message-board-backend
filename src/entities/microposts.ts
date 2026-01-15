@@ -15,8 +15,8 @@ export class MicroPost {
   @Column()
   user_id: number;
 
-  @Column({ type: 'uuid', default: () => 'uuid_generate_v4()' })
-  user_uuid: string;
+  @Column({ type: 'uuid', unique: true })
+  uuid: string;
 
   @Column()
   content: string;

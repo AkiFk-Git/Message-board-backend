@@ -19,7 +19,7 @@ export class PostService {
     const now = new Date();
     const auth = await this.authRepository.findOne({
       where: {
-        user_uuid: Equal(userUuid),
+        uuid: Equal(userUuid),
         token: Equal(token),
         expire_at: MoreThan(now),
       },
@@ -31,7 +31,7 @@ export class PostService {
     //追加する行を定義
     const record = {
       user_id: auth.user_id,
-      user_uuid: auth.user_uuid,
+      user_uuid: auth.uuid,
       content: message,
     };
     //micro_postテーブルに行を追加
@@ -91,7 +91,7 @@ export class PostService {
     const now = new Date();
     const auth = await this.authRepository.findOne({
       where: {
-        user_uuid: Equal(userUuid),
+        uuid: Equal(userUuid),
         token: Equal(token),
         expire_at: MoreThan(now),
       },
@@ -104,7 +104,7 @@ export class PostService {
     const post = await this.microPostsRepository.findOne({
       where: {
         id: Equal(postId),
-        user_uuid: Equal(userUuid),
+        uuid: Equal(userUuid),
       },
     });
     //　一致するポストの内容を変更
@@ -120,7 +120,7 @@ export class PostService {
     const now = new Date();
     const auth = await this.authRepository.findOne({
       where: {
-        user_uuid: Equal(userUuid),
+        uuid: Equal(userUuid),
         token: Equal(token),
         expire_at: MoreThan(now),
       },
@@ -133,7 +133,7 @@ export class PostService {
     const post = await this.microPostsRepository.findOne({
       where: {
         id: Equal(postId),
-        user_uuid: Equal(userUuid),
+        uuid: Equal(userUuid),
       },
     });
     //一致するポストをソフトデリート
