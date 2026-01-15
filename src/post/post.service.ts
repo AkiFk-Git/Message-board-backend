@@ -31,7 +31,7 @@ export class PostService {
     //追加する行を定義
     const record = {
       user_id: auth.user_id,
-      user_uuid: auth.uuid,
+      uuid: auth.uuid,
       content: message,
     };
     //micro_postテーブルに行を追加
@@ -59,7 +59,7 @@ export class PostService {
       .leftJoinAndSelect('user', 'user', 'user.id=micro_post.user_id')
       .select([
         'micro_post.id as id',
-        'micro_post.user_uuid as "userUuid"',
+        'micro_post.uuid as "userUuid"',
         'user.name as "userName"',
         'micro_post.content as content',
         'micro_post.created_at as "createdAt"',
