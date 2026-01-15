@@ -15,7 +15,6 @@ export class PostService {
 
   //ポスト投稿のメソッド
   async createPost(message: string, token: string, userUuid: string) {
-
     // ログイン済みかチェック
     const now = new Date();
     const auth = await this.authRepository.findOne({
@@ -41,7 +40,6 @@ export class PostService {
 
   //ポスト一覧を取得するのメソッド
   async getList(token: string, start: number = 0, nr_records: number = 1) {
-
     // ログイン済みかチェック
     const now = new Date();
     const auth = await this.authRepository.findOne({
@@ -83,8 +81,12 @@ export class PostService {
   }
 
   //ポスト編集のメソッド
-  async putPost(token: string, userUuid: string,  postId:number, message: string,){
-
+  async putPost(
+    token: string,
+    userUuid: string,
+    postId: number,
+    message: string,
+  ) {
     // ログイン済みかチェック
     const now = new Date();
     const auth = await this.authRepository.findOne({
@@ -113,8 +115,7 @@ export class PostService {
   }
 
   //ポスト削除のメソッド
-  async deletePost(userUuid: string, token: string,  postId:number) {   
-
+  async deletePost(userUuid: string, token: string, postId: number) {
     // ログイン済みかチェック
     const now = new Date();
     const auth = await this.authRepository.findOne({
@@ -134,12 +135,10 @@ export class PostService {
         id: Equal(postId),
         user_uuid: Equal(userUuid),
       },
-    }); 
+    });
     //一致するポストをソフトデリート
     if (post) {
       await this.microPostsRepository.softDelete(post.id);
     }
   }
 }
-
-

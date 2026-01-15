@@ -8,6 +8,6 @@ import { Auth } from '../entities/auth';
 @Module({
   imports: [TypeOrmModule.forFeature([MicroPost, Auth])],
   controllers: [PostController],
-  providers: [PostService]
+  providers: [PostService],
 })
 export class PostModule {}

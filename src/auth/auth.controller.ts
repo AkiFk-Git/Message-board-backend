@@ -3,13 +3,13 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}   
-    
+  constructor(private readonly authService: AuthService) {}
+
   @Get()
   async getAuth(
     @Query('userName') name: string,
     @Query('password') password: string,
   ) {
     return await this.authService.getAuth(name, password);
-  } 
+  }
 }

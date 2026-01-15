@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Query, Delete, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Query,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { PostService } from './post.service';
 
 @Controller('post')
@@ -7,11 +15,11 @@ export class PostController {
 
   @Post()
   async createPost(
-    @Body('message') 
+    @Body('message')
     message: string,
-    @Query("userUuid")
+    @Query('userUuid')
     userUuid: string,
-    @Query('token') 
+    @Query('token')
     token: string,
   ) {
     return await this.postService.createPost(message, token, userUuid);
@@ -28,20 +36,20 @@ export class PostController {
 
   @Put()
   async putPost(
-    @Body('message')message: string,
-    @Query('token')token: string,
-    @Query('userUuid')userUuid:string,
-    @Query('postId')postId:number,
-  ){
-    this.postService.putPost(token, userUuid, postId, message)
+    @Body('message') message: string,
+    @Query('token') token: string,
+    @Query('userUuid') userUuid: string,
+    @Query('postId') postId: number,
+  ) {
+    this.postService.putPost(token, userUuid, postId, message);
   }
 
   @Delete()
   async deletePost(
-    @Query('userUuid')userUuid:string,
-    @Query('token')token: string,
-    @Query('postId')postId:number,
-  ){
-    await this.postService.deletePost(userUuid, token, postId)
+    @Query('userUuid') userUuid: string,
+    @Query('token') token: string,
+    @Query('postId') postId: number,
+  ) {
+    await this.postService.deletePost(userUuid, token, postId);
   }
 }
